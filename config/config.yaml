@@ -9,7 +9,7 @@ email:
     imap_server: "imap.example.com"
     smtp_server: "smtp.example.com"
     port: 993
-    username: "your_email@example.com"
+    username: "ashutoshk167@gmail.com"
     password: ${EMAIL_PASSWORD}  # Set this in .env file
   check_frequency: 600  # in seconds
 
