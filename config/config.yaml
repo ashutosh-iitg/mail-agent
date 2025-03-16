@@ -1,0 +1,77 @@
+email:
+  provider: "auto"  # auto, gmail, other
+  gmail:
+    credentials_file: "credentials.json"
+    token_file: "token.json"
+    scopes:
+      - "https://www.googleapis.com/auth/gmail.modify"
+  other:
+    imap_server: "imap.example.com"
+    smtp_server: "smtp.example.com"
+    port: 993
+    username: "your_email@example.com"
+    password: ${EMAIL_PASSWORD}  # Set this in .env file
+  check_frequency: 600  # in seconds
+
+labels:
+  - name: "Important"
+    criteria:
+      from: 
+        - "boss@company.com"
+        - "client@company.com"
+      subject_contains:
+        - "urgent"
+        - "important"
+        - "deadline"
+      notify: true
+  
+  - name: "Work"
+    criteria:
+      from_domain:
+        - "company.com"
+      subject_contains:
+        - "project"
+        - "meeting"
+      notify: false
+  
+  - name: "Personal"
+    criteria:
+      from:
+        - "family@example.com"
+        - "friend@example.com"
+      notify: false
+
+cleaning:
+  delete_newsletters: true
+  newsletter_domains:
+    - "newsletter.com"
+    - "marketing.com"
+  delete_older_than: 90  # in days
+  delete_read: false
+  
+notifications:
+  method: "sms"  # options: pushover, email, sms, whatsapp
+  pushover:
+    api_token: ${PUSHOVER_TOKEN}  # Set this in .env file
+    user_key: ${PUSHOVER_USER}  # Set this in .env file
+  email:
+    smtp_server: "smtp.example.com"
+    smtp_port: 465
+    from_address: "your_email@example.com"
+    to_address: "your_phone@example.com"
+    username: "your_email@example.com"
+    password: ${EMAIL_PASSWORD}  # Set this in .env file
+  sms:
+    provider: "twilio"  # only twilio supported for now
+    twilio:
+      account_sid: ${TWILIO_ACCOUNT_SID}  # Set this in .env file
+      auth_token: ${TWILIO_AUTH_TOKEN}  # Set this in .env file
+      from_number: "+1234567890"  # Your Twilio number
+      to_number: "+0987654321"  # Your mobile number
+  whatsapp:
+    provider: "twilio"  # only twilio supported for now
+    twilio:
+      account_sid: ${TWILIO_ACCOUNT_SID}  # Set this in .env file
+      auth_token: ${TWILIO_AUTH_TOKEN}  # Set this in .env file
+      from_number: "whatsapp:+1234567890"  # Your Twilio WhatsApp number
+      to_number: "whatsapp:+0987654321"  # Your WhatsApp number
